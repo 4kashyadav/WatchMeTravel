@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/flutter_svg.dart';
+import 'package:watch_me_travel/resources/auth_methods.dart';
 import 'package:watch_me_travel/utils/colors.dart';
 import 'package:watch_me_travel/widgets/text_field.dart';
 
@@ -119,6 +120,14 @@ class _SignUpPageState extends State<SignUpPage> {
 
             //button
             InkWell(
+              onTap: () async {
+                String res = await AuthMethods().SignupUser(
+                    email: _emailController.text,
+                    password: _passwordController.text,
+                    username: _usernameController.text,
+                    bio: _bioController.text);
+                print(res);
+              },
               child: Container(
                 child: const Text("Sign In"),
                 width: double.infinity,
