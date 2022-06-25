@@ -1,7 +1,16 @@
+import 'dart:isolate';
+
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/flutter_svg.dart';
+import 'package:watch_me_travel/pages/SignUpPage.dart';
+import 'package:watch_me_travel/resources/auth_methods.dart';
 import 'package:watch_me_travel/utils/colors.dart';
+import 'package:watch_me_travel/utils/util.dart';
 import 'package:watch_me_travel/widgets/text_field.dart';
+
+import '../responsive/mobile_layout.dart';
+import '../responsive/responsive_layout.dart';
+import '../responsive/web_layout.dart';
 
 class LoginPage extends StatefulWidget {
   const LoginPage({Key? key}) : super(key: key);
@@ -13,12 +22,41 @@ class LoginPage extends StatefulWidget {
 class _LoginPageState extends State<LoginPage> {
   final TextEditingController _emailController = TextEditingController();
   final TextEditingController _passwordController = TextEditingController();
+  bool _isLoading = false;
 
   @override
   void dispose() {
     super.dispose();
     _emailController.dispose();
     _passwordController.dispose();
+  }
+
+  void loginUser() async {
+    setState(() {
+      _isLoading = true;
+    });
+    String res = await AuthMethods().loginUser(
+        email: _emailController.text, password: _passwordController.text);
+    if (res == 'success') {
+      Navigator.of(context).pushReplacement(
+        MaterialPageRoute(
+            builder: (context) => const Responsive(
+                  mobileLayout: MobileLayout(),
+                  webLayout: WebLayout(),
+                )),
+      );
+    } else {
+      showSnakbars(res, context);
+    }
+    setState(() {
+      _isLoading = false;
+    });
+  }
+
+  void navigateToSignup() {
+    Navigator.of(context).push(
+      MaterialPageRoute(builder: (context) => SignUpPage()),
+    );
   }
 
   @override
@@ -67,8 +105,13 @@ class _LoginPageState extends State<LoginPage> {
 
             //button
             InkWell(
+              onTap: loginUser,
               child: Container(
-                child: const Text("LogIn"),
+                child: _isLoading
+                    ? Center(
+                        child: CircularProgressIndicator(color: primaryColor),
+                      )
+                    : const Text("LogIn"),
                 width: double.infinity,
                 alignment: Alignment.center,
                 padding: const EdgeInsets.symmetric(vertical: 12),
@@ -97,7 +140,7 @@ class _LoginPageState extends State<LoginPage> {
                   padding: EdgeInsets.symmetric(vertical: 8),
                 ),
                 GestureDetector(
-                  onTap: (){},
+                  onTap: navigateToSignup,
                   child: Container(
                     child: const Text(
                       "Sign Up",
