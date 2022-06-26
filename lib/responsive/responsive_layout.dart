@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 import 'package:watch_me_travel/providers/user_provider.dart';
-import 'package:watch_me_travel/utils/dimentions.dart';
+import 'package:watch_me_travel/utils/GlobalVaribles.dart';
 
 class Responsive extends StatefulWidget {
   final Widget webLayout;

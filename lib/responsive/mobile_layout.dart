@@ -1,5 +1,6 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
+import 'package:watch_me_travel/utils/GlobalVaribles.dart';
 import 'package:watch_me_travel/utils/colors.dart';
 
 class MobileLayout extends StatefulWidget {
@@ -40,13 +41,7 @@ class _MobileLayoutState extends State<MobileLayout> {
   Widget build(BuildContext context) {
     return Scaffold(
       body: PageView(
-        children: [
-          Center(child: Text('Feed')),
-          Center(child: Text('Search')),
-          Center(child: Text('Add')),
-          Center(child: Text('Likes')),
-          Center(child: Text('Profile')),
-        ],
+        children: homeScreenItems,
         physics: const NeverScrollableScrollPhysics(),
         controller: pagecontroller,
         onPageChanged: onPageChanged,
