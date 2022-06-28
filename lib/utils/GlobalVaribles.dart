@@ -1,10 +1,11 @@
 import 'package:flutter/material.dart';
 import 'package:watch_me_travel/pages/AddPost.dart';
+import 'package:watch_me_travel/pages/FeedPage.dart';
 
 const webSizeScreen = 600;
 
 const homeScreenItems = [
-  Center(child: Text('Feed')),
+  FeedPage(),
   Center(child: Text('Search')),
   AddPostScreen(),
   Center(child: Text('Likes')),
