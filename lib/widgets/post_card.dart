@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:intl/intl.dart';
 import 'package:provider/provider.dart';
 import 'package:watch_me_travel/models/user.dart';
+import 'package:watch_me_travel/pages/CommentPage.dart';
 import 'package:watch_me_travel/providers/user_provider.dart';
 import 'package:watch_me_travel/resources/firestore_method.dart';
 import 'package:watch_me_travel/utils/colors.dart';
@@ -156,7 +157,13 @@ class _PostCardState extends State<PostCard> {
                 ),
               ),
               IconButton(
-                onPressed: () {},
+                onPressed: () => Navigator.of(context).push(
+                  MaterialPageRoute(
+                    builder: (context) => CommentPage(
+                      snap: widget.snap,
+                    ),
+                  ),
+                ),
                 icon: const Icon(
                   Icons.comment_outlined,
                 ),
